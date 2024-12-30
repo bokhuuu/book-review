@@ -3,6 +3,32 @@
 @section('content')
     <h1 class="mb-10 text-2xl">Books</h1>
 
+    <form method="GET" action="{{ route('books.index') }}" class="mb-4 flex items-center space-x-2 h-10">
+        <input type="text" name="title" placeholder="Search by title" value="{{ request('title') }}" class="input h-10" />
+        <input type="hidden" name="filter" value="{{ request('filter') }}" />
+        <button type="sumbit" class="btn">Search</button>
+        <a href="{{ route('books.index') }}" class="btn h-10">Clear</a>
+    </form>
+
+    <div class="filter-container mb-4 flex">
+        @php
+            $filters = [
+                '' => 'Latest',
+                'popular_last_3month' => 'Popular Last 3 Month',
+                'popular_last_6month' => 'Popular Last 6 Month',
+                'highest_rated_last_3month' => 'Highest Rated Last 3 Month',
+                'highest_rated_last_6month' => 'HIghest Rated Last 6 Month',
+            ];
+        @endphp
+
+        @foreach ($filters as $key => $label)
+            <a href="{{ route('books.index', [...request()->query(), 'filter' => $key]) }}"
+                class="{{ request('filter') === $key || (request('filter') === null && $key === '') ? 'filter-item-active' : 'filter-item' }}">
+                {{ $label }}
+            </a>
+        @endforeach
+    </div>
+
     <ul>
         @forelse ($books as $book)
             <li class="mb-4">
