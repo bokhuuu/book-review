@@ -38,6 +38,11 @@ class BookController extends Controller
                 $books->paginate(10)
             );
 
+        $books->appends([
+            'filter' => $filter,
+            'title' => $title,
+        ]);
+
         return view('books.index', ['books' => $books]);
     }
 

@@ -22,7 +22,7 @@
         @endphp
 
         @foreach ($filters as $key => $label)
-            <a href="{{ route('books.index', [...request()->query(), 'filter' => $key]) }}"
+            <a href="{{ route('books.index', [...request()->query(), 'filter' => $key, 'page' => 1]) }}"
                 class="{{ request('filter') === $key || (request('filter') === null && $key === '') ? 'filter-item-active' : 'filter-item' }}">
                 {{ $label }}
             </a>
@@ -40,7 +40,7 @@
                         </div>
                         <div>
                             <div class="book-rating">
-                                {{ number_format($book->reviews_avg_rating, 1) }}
+                                <x-star-rating :rating="$book->reviews_avg_rating" />
                             </div>
                             <div class="book-review-count">
                                 out of {{ $book->reviews_count }} {{ Str::plural('review', $book->reviews_count) }}
