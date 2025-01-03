@@ -17,6 +17,17 @@
         </div>
     </div>
 
+    <div class="mb-4 flex justify-between ">
+        <a href="{{ route('books.index') }}" class="reset-link">Go to home page</a>
+        <a href="{{ route('books.reviews.create', $book) }}" class="reset-link">Add a review</a>
+    </div>
+
+    <div class="text-green-500 text-sm mb-4">
+        @if (session()->has('success'))
+            <div>{{ session('success') }}</div>
+        @endif
+    </div>
+
     <div>
         <h2 class="mb-4 text-xl font-semibold">Reviews</h2>
         <ul>
